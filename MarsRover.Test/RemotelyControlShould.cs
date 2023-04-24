@@ -159,10 +159,10 @@ namespace MarsRover.Test
         public void MoveFourStepsRoverBackwardWhenLookToWestAndInitialPosition()
         {
             _remotelyControl = new RemotelyControl(Orientation.West, new Position(1, 1));
-            _remotelyControl.MoveForward();
-            _remotelyControl.MoveForward();
-            _remotelyControl.MoveForward();
-            _remotelyControl.MoveForward();
+            _remotelyControl.MoveBackward();
+            _remotelyControl.MoveBackward();
+            _remotelyControl.MoveBackward();
+            _remotelyControl.MoveBackward();
 
             _remotelyControl.Position.Should().BeEquivalentTo(new Position(5, 1));
         }
