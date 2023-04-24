@@ -116,5 +116,15 @@ namespace MarsRover.Test
 
             _remotelyControl.Position.Should().BeEquivalentTo(new Position(1, 3));
         }
+
+
+        [Test]
+        public void MoveOneStepRoverBackwardWhenLookToSouthAndInitialPosition()
+        {
+            _remotelyControl = new RemotelyControl(Orientation.South, new Position(1, 1));
+            _remotelyControl.MoveBackward();
+
+            _remotelyControl.Position.Should().BeEquivalentTo(new Position(1, 0));
+        }
     }
 }
