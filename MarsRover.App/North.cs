@@ -3,7 +3,6 @@
     public class North : IState
     {
         private readonly RemotelyControl _remotelyControl;
-        public Position Position;
 
         public North(RemotelyControl remotelyControl)
         {

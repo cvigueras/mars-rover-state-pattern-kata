@@ -10,13 +10,23 @@ public class RemotelyControl
     {
         Position = position;
         Orientation = orientation;
-        _state = Orientation switch
+        switch (Orientation)
         {
-            Orientation.North => new North(this),
-            Orientation.East => new East(this),
-            Orientation.South => new South(this),
-            Orientation.West => new West(this)
-        };
+            case Orientation.North:
+                _state = new North(this);
+                break;
+            case Orientation.East:
+                _state = new East(this);
+                break;
+            case Orientation.South:
+                _state = new South(this);
+                break;
+            case Orientation.West:
+                _state = new West(this);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(Orientation));
+        }
     }
 
     public void TurnRight()
