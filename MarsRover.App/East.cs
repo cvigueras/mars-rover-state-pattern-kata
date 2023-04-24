@@ -17,7 +17,7 @@
 
         public void MoveBackward()
         {
-            throw new NotImplementedException();
+            _remotelyControl.Position = new Position(_remotelyControl.Position.X - 1, _remotelyControl.Position.Y);
         }
 
         public IState TurnRight()
