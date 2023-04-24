@@ -1,12 +1,7 @@
 ﻿namespace MarsRover.App
 {
-    abstract class IState
+    public interface IState
     {
-        protected RemotelyControl? RemotelyControl;
 
-        public void SetContext(RemotelyControl? remotelyControl)
-        {
-            RemotelyControl = remotelyControl;
-        }
     }
 }

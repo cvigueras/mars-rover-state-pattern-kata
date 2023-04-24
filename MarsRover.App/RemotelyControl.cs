@@ -16,11 +16,21 @@ public class RemotelyControl
         foreach (var command in givenCommand)
         {
             if (command == Command.F)
-                Position = new Position(Position.X, Position.Y - 1);
+                MoveForward();
             if (command == Command.B)
-                Position = new Position(Position.X, Position.Y + 1);
+                MoveBackward();
         }
         return Position;
+    }
+
+    private void MoveBackward()
+    {
+        Position = new Position(Position.X, Position.Y + 1);
+    }
+
+    private void MoveForward()
+    {
+        Position = new Position(Position.X, Position.Y - 1);
     }
 
     public Orientation Turn(Command[] givenCommand)
@@ -28,19 +38,28 @@ public class RemotelyControl
         switch (givenCommand[0])
         {
             case Command.R:
-                _orientation += 1;
-                break;
+                return TurnRight();
             default:
-                _orientation -= 1;
-                break;
+                return TurnLeft();
         }
-        if (_orientation > Orientation.West)
-        {
-            _orientation = Orientation.North;
-        }
+    }
+
+    private Orientation TurnLeft()
+    {
+        _orientation -= 1;
         if (_orientation <= Orientation.None)
         {
             _orientation = Orientation.West;
+        }
+        return _orientation;
+    }
+
+    private Orientation TurnRight()
+    {
+        _orientation += 1;
+        if (_orientation > Orientation.West)
+        {
+            _orientation = Orientation.North;
         }
         return _orientation;
     }
