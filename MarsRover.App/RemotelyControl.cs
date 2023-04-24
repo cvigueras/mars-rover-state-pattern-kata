@@ -4,11 +4,13 @@ public class RemotelyControl
 {
     private Orientation _orientation;
     public Position Position;
+    private IState _state;
 
     public RemotelyControl(Orientation orientation, Position position)
     {
         Position = position;
         _orientation = orientation;
+        _state = new North(this);
     }
 
     public Position Move(Command[] givenCommand)
