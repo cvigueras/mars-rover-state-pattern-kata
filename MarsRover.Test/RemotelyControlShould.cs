@@ -24,99 +24,87 @@ namespace MarsRover.Test
         [Test]
         public void MoveOneStepRoverForwardWhenStayInInitialPosition()
         {
-            Command[] givenCommand = { Command.F };
-            var result = _remotelyControl.Move(givenCommand);
+            _remotelyControl.MoveForward();
 
-            result.Should().BeEquivalentTo(new Position(1,0));
+            _remotelyControl.Position.Should().BeEquivalentTo(new Position(1,0));
         }
 
         [Test]
         public void MoveOneStepRoverBackwardWhenStayInInitialPosition()
         {
-            Command[] givenCommand = { Command.B };
-            var result = _remotelyControl.Move(givenCommand);
+            _remotelyControl.MoveBackward();
 
-            result.Should().BeEquivalentTo(new Position(1,2));
+            _remotelyControl.Position.Should().BeEquivalentTo(new Position(1, 2));
         }
 
         [Test]
         public void MoveTwoStepsRoverBackwardWhenStayInInitialPosition()
         {
-            Command[] givenCommand = { Command.B , Command.B };
-            var result = _remotelyControl.Move(givenCommand);
+            _remotelyControl.MoveBackward();
+            _remotelyControl.MoveBackward();
 
-            result.Should().BeEquivalentTo(new Position(1, 3));
+            _remotelyControl.Position.Should().BeEquivalentTo(new Position(1, 3));
         }
 
         [Test]
         public void MoveThreeStepsRoverBackwardWhenStayInInitialPosition()
         {
-            Command[] givenCommand = { Command.B , Command.B, Command.B };
-            var result = _remotelyControl.Move(givenCommand);
+            _remotelyControl.MoveBackward();
+            _remotelyControl.MoveBackward();
+            _remotelyControl.MoveBackward();
 
-            result.Should().BeEquivalentTo(new Position(1, 4));
+            _remotelyControl.Position.Should().BeEquivalentTo(new Position(1, 4));
         }
 
         [Test]
         public void RotateLeftRoverWhenStayInInitialOrientation()
         {
-            Command[] givenCommand = { Command.L };
-            var result = _remotelyControl.Turn(givenCommand);
+            _remotelyControl.TurnLeft();
 
-            result.Should().Be(Orientation.West);
+            _remotelyControl.Orientation.Should().Be(Orientation.West);
         }
 
         [Test]
         public void RotateRightRoverWhenStayInInitialOrientation()
         {
-            Command[] givenCommand = { Command.R };
-            var result = _remotelyControl.Turn(givenCommand);
+            _remotelyControl.TurnRight();
 
-            result.Should().Be(Orientation.East);
+            _remotelyControl.Orientation.Should().Be(Orientation.East);
         }
 
         [Test]
         public void RotateRightRoverWhenStayInCurrentOrientation()
         {
-            Command[] firstCommand = { Command.R };
-            _remotelyControl.Turn(firstCommand);
-            Command[] secondCommand = { Command.L };
+            _remotelyControl.TurnRight();
+            _remotelyControl.TurnLeft();
 
-            var result = _remotelyControl.Turn(secondCommand);
-
-            result.Should().Be(Orientation.North);
+            _remotelyControl.Orientation.Should().Be(Orientation.North);
         }
 
         [Test]
         public void RotateLeftRoverWhenStayInNorth()
         {
-            Command[] secondCommand = { Command.L };
+            _remotelyControl.TurnLeft();
 
-            var result = _remotelyControl.Turn(secondCommand);
-
-            result.Should().Be(Orientation.West);
+            _remotelyControl.Orientation.Should().Be(Orientation.West);
         }
 
         [Test]
         public void RotateRightRoverWhenStayInWest()
         {
             _remotelyControl = new RemotelyControl(Orientation.West, new Position(1, 1));
-            Command[] secondCommand = { Command.R };
+            _remotelyControl.TurnRight();
 
-            var result = _remotelyControl.Turn(secondCommand);
-
-            result.Should().Be(Orientation.North);
+            _remotelyControl.Orientation.Should().Be(Orientation.North);
         }
 
         [Test]
         public void RotateLeftRoverWhenStayInSouth()
         {
             _remotelyControl = new RemotelyControl(Orientation.South, new Position(1, 1));
-            Command[] secondCommand = { Command.L };
+            _remotelyControl.TurnLeft();
 
-            var result = _remotelyControl.Turn(secondCommand);
-
-            result.Should().Be(Orientation.East);
+            _remotelyControl.Orientation.Should().Be(Orientation.East);
         }
     }
 }

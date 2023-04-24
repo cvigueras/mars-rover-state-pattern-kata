@@ -6,6 +6,7 @@
 
         public East(RemotelyControl remotelyControl)
         {
+            remotelyControl.Orientation = Orientation.East;
             _remotelyControl = remotelyControl;
         }
 
@@ -21,12 +22,12 @@
 
         public IState TurnRight()
         {
-            throw new NotImplementedException();
+            return new South(_remotelyControl);
         }
 
         public IState TurnLeft()
         {
-            throw new NotImplementedException();
+            return new North(_remotelyControl);
         }
     }
 }

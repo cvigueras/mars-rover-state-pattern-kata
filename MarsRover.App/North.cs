@@ -3,30 +3,32 @@
     public class North : IState
     {
         private readonly RemotelyControl _remotelyControl;
+        public Position Position;
 
         public North(RemotelyControl remotelyControl)
         {
+            remotelyControl.Orientation = Orientation.North;
             _remotelyControl = remotelyControl;
         }
 
         public void MoveForward()
         {
-            throw new NotImplementedException();
+            _remotelyControl.Position = new Position(_remotelyControl.Position.X, _remotelyControl.Position.Y - 1);
         }
 
         public void MoveBackward()
         {
-            throw new NotImplementedException();
+            _remotelyControl.Position = new Position(_remotelyControl.Position.X, _remotelyControl.Position.Y + 1);
         }
 
         public IState TurnRight()
         {
-            throw new NotImplementedException();
+            return new East(_remotelyControl);
         }
 
         public IState TurnLeft()
         {
-            throw new NotImplementedException();
+            return new West(_remotelyControl);
         }
     }
 }

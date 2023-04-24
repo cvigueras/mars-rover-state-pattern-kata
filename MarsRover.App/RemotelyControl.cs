@@ -2,67 +2,40 @@ namespace MarsRover.App;
 
 public class RemotelyControl
 {
-    private Orientation _orientation;
+    public Orientation Orientation;
     public Position Position;
     private IState _state;
 
     public RemotelyControl(Orientation orientation, Position position)
     {
         Position = position;
-        _orientation = orientation;
-        _state = new North(this);
-    }
-
-    public Position Move(Command[] givenCommand)
-    {
-        foreach (var command in givenCommand)
+        Orientation = orientation;
+        _state = Orientation switch
         {
-            if (command == Command.F)
-                MoveForward();
-            if (command == Command.B)
-                MoveBackward();
-        }
-        return Position;
+            Orientation.North => new North(this),
+            Orientation.East => new East(this),
+            Orientation.South => new South(this),
+            Orientation.West => new West(this)
+        };
     }
 
-    private void MoveBackward()
+    public void TurnRight()
     {
-        Position = new Position(Position.X, Position.Y + 1);
+        _state = _state.TurnRight();
     }
 
-    private void MoveForward()
+    public void TurnLeft()
     {
-        Position = new Position(Position.X, Position.Y - 1);
+        _state = _state.TurnLeft();
     }
 
-    public Orientation Turn(Command[] givenCommand)
+    public void MoveBackward()
     {
-        switch (givenCommand[0])
-        {
-            case Command.R:
-                return TurnRight();
-            default:
-                return TurnLeft();
-        }
+        _state.MoveBackward();
     }
 
-    private Orientation TurnLeft()
+    public void MoveForward()
     {
-        _orientation -= 1;
-        if (_orientation <= Orientation.None)
-        {
-            _orientation = Orientation.West;
-        }
-        return _orientation;
-    }
-
-    private Orientation TurnRight()
-    {
-        _orientation += 1;
-        if (_orientation > Orientation.West)
-        {
-            _orientation = Orientation.North;
-        }
-        return _orientation;
+        _state.MoveForward();
     }
 }
